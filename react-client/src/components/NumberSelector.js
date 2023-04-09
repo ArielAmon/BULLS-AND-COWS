@@ -21,7 +21,7 @@ function NumberSelector({index, currGuesses, setGuess}){
                     aria-label="Guess"
                     onChange={(e) => handleSelect(e.target.value)}
             >
-                <option disabled defaultValue>Guess...</option>
+                <option defaultValue>Guess...</option>
                 <option value="0">0</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
