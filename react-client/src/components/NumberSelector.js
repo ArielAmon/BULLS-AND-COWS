@@ -8,7 +8,6 @@ function NumberSelector({index, currGuesses, setGuess}){
             return index === i ? newGuess : val;
         })
 
-        console.log(newGuesses)
         setGuess(newGuesses);
     }
 
@@ -17,7 +16,8 @@ function NumberSelector({index, currGuesses, setGuess}){
     return (
         <Col>
         <label>
-            <select className="form-select form-select-lg"
+            <select value={currGuesses[index]}
+                    className="form-select form-select-lg"
                     aria-label="Guess"
                     onChange={(e) => handleSelect(e.target.value)}
             >
