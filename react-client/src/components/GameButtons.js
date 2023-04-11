@@ -3,23 +3,45 @@ import {useState} from "react";
 import GameRules from "./GameRules";
 
 
-function GameButtons({currGuesses, setMsg, init}) {
+function GameButtons({actualNumbers, currGuesses, setMsg, newGame}) {
 
-    const validMsg = "Your history of guesses will appear below:"
-    const notValid = "please enter four digits";
+
     const [rulesModal, setRulesModal] = useState(false);
+
+    function validations(){
+
+        const validMsg = "Your history of guesses will appear below:"
+        const notValidDigit = "Please select 4 digits";
+        const notValidUnique = "Please select 4 unique digits";
+
+        if(!currGuesses.every((val) => /^\d$/.test(val))) {
+            setMsg(notValidDigit);
+            return false;
+        }
+
+        if(currGuesses.length !== new Set(currGuesses).size){
+            setMsg(notValidUnique);
+            return false;
+        }
+
+        setMsg(validMsg);
+        return true;
+    }
 
 
     function checkGuess() {
 
-        let valid = currGuesses.every((val) => /^\d$/.test(val));
-        setMsg(valid ? validMsg : notValid);
-        console.log("jfj ")
-
+        if (validations()) {
+            let bulls = 0;
+            const cows = currGuesses.filter(number => actualNumbers.includes(number));
+            for (let i = 0 ; i < currGuesses.length ; i++){
+                if(actualNumbers[i] === currGuesses[i]) bulls++;
+            }
+            console.log(actualNumbers,currGuesses,cows, bulls);
+            setMsg(`Your Guess: ${bulls} bulls and ${cows.length} cows.`);
+        }
     }
 
-    function initGame() {
-    }
 
     return (
         <>
@@ -34,7 +56,7 @@ function GameButtons({currGuesses, setMsg, init}) {
                 </button>
             </Col>
             <Col>
-                <button type="button" className="btn btn-lg btn-outline-light fw-bolder fs-4" onClick={() => init()}>
+                <button type="button" className="btn btn-lg btn-outline-light fw-bolder fs-4" onClick={() => newGame(true)}>
                     New Game
                 </button>
             </Col>

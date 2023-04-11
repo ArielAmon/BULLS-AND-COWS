@@ -11,8 +11,6 @@ function NumberSelector({index, currGuesses, setGuess}){
         setGuess(newGuesses);
     }
 
-
-
     return (
         <Col>
         <label>
